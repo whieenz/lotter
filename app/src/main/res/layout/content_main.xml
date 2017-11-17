@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.whieenz.lotter.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/tv_black"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:layout_height="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="5dp">
+
+        <com.whieenz.lotter.SquareTextView
+            android:id="@+id/tv_red_first"
+            style="@style/TextViewRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.whieenz.lotter.SquareTextView
+            android:id="@+id/tv_red_second"
+            style="@style/TextViewRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.whieenz.lotter.SquareTextView
+            android:id="@+id/tv_red_third"
+            style="@style/TextViewRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.whieenz.lotter.SquareTextView
+            android:id="@+id/tv_red_fourth"
+            style="@style/TextViewRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.whieenz.lotter.SquareTextView
+            android:id="@+id/tv_red_fifth"
+            style="@style/TextViewRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.whieenz.lotter.SquareTextView
+            android:id="@+id/tv_red_sixth"
+            style="@style/TextViewRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.whieenz.lotter.SquareTextView
+            android:id="@+id/tv_blue"
+            style="@style/TextViewBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:text="随机一注"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
+        <Button
+            android:id="@+id/btn_get"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:text="执行匹配"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
+    </LinearLayout>
+
+
+
+</LinearLayout>
