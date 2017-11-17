@@ -45,10 +45,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     List<Integer> blueSet;
     List<Integer> resultSet;
     private boolean suspended;
+    private int period = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        //去掉Activity上面的状态栏
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+//                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             stringBuilder.append(resultSet.get(i));
             stringBuilder.append(" ");
         }
+        stringBuilder.append("+");
         stringBuilder.append(blue);
         return stringBuilder.toString();
     }
@@ -156,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             stringBuilder.append(selectedRed.get(i));
             stringBuilder.append(" ");
         }
+        stringBuilder.append("+");
         stringBuilder.append(Integer.valueOf(tv_blue.getText().toString()));
         return stringBuilder.toString();
     }
@@ -221,11 +230,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_start:
-                stop();
-                settext();
+                startCreat();
                 break;
 
         }
+    }
+
+    private void startCreat() {
+        stop();
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Thread.sleep(2000);//休眠3秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+        settext();
     }
 
     private void start() {
@@ -310,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (!Thread.currentThread().isInterrupted()) {
                 switch (msg.what) {
                     case 0:
-                        updateBlackText(msg.getData().getString("msg"),msg.getData().getInt("count"));
+                        updateBlackText(msg.getData().getString("msg"), msg.getData().getInt("count"));
                         break;
                     default:
                         break;
@@ -321,12 +345,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void updateBlackText(String msg, int count) {
         StringBuilder builder = new StringBuilder();
-        builder.append(count);
-        builder.append("：");
         builder.append(StringUtil.getTime());
+        builder.append(":");
+        builder.append(count);
         builder.append(":");
         builder.append(msg);
         builder.append("\n");
+        if (tv_black.getLineCount() > 1000) {
+            tv_black.setText("");
+        }
         tv_black.append(builder);
         int offset = tv_black.getLineCount() * tv_black.getLineHeight();
         if (offset > tv_black.getHeight()) {
@@ -338,6 +365,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getSameBall() {
         this.start();
+        tv_black.setText("");
         count = 0;
         Thread thread = new Thread() {
             public void run() {
@@ -356,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     count++;
                     createAllBall();
                     created = getCreatedBall();
-                    if (count % 888 == 0) {
+                    if (count % period == 0) {
                         setMessget(created, count);
                     }
                 } while (!isSame(selected, created));
